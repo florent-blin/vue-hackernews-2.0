@@ -1,5 +1,5 @@
 {
   "baseUrl": "https://vue-hn.now.sh",
   "projectId": "9gx2of",
-  "ignoreTestFiles": "**/exemples/*.js"
+  "ignoreTestFiles": "**/examples/*.js"
 }
