@@ -10,6 +10,8 @@ const api = createAPI({
   }
 })
 
+//import {winston} from 'winston'
+
 // warm the front page cache every 15 min
 // make sure to do this only once across all requests
 if (api.onServer) {
@@ -22,7 +24,7 @@ function warmCache () {
 }
 
 function fetch (child) {
-  logRequests && console.log(`fetching ${child}...`)
+  //winston.info(`fetching ${child}...`);
   const cache = api.cachedItems
   if (cache && cache.has(child)) {
     logRequests && console.log(`cache hit for ${child}.`)
@@ -42,6 +44,7 @@ function fetch (child) {
 }
 
 export function fetchIdsByType (type) {
+  console.debug(`fetching ${type}...`)
   return api.cachedIds && api.cachedIds[type]
     ? Promise.resolve(api.cachedIds[type])
     : fetch(`${type}stories`)
@@ -52,6 +55,7 @@ export function fetchItem (id) {
 }
 
 export function fetchItems (ids) {
+  //console.debug(`fetchItems ${ids}...`)
   return Promise.all(ids.map(id => fetchItem(id)))
 }
 

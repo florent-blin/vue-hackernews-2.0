@@ -5,6 +5,7 @@ const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
 const config = merge(base, {
+  mode: "development",
   entry: {
     app: './src/entry-client.js'
   },
@@ -20,7 +21,7 @@ const config = merge(base, {
       'process.env.VUE_ENV': '"client"'
     }),
     // extract vendor chunks for better caching
-    new webpack.optimize.CommonsChunkPlugin({
+    /*new webpack.optimize.splitChunks({
       name: 'vendor',
       minChunks: function (module) {
         // a module is extracted into the vendor chunk if...
@@ -31,12 +32,12 @@ const config = merge(base, {
           !/\.css$/.test(module.request)
         )
       }
-    }),
+    }),*/
     // extract webpack runtime & manifest to avoid vendor chunk hash changing
     // on every build.
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest'
-    }),
+    //new webpack.optimize.splitChunks({
+    //  name: 'manifest'
+    //:}),
     new VueSSRClientPlugin()
   ]
 })

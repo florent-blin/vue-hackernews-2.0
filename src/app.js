@@ -5,6 +5,27 @@ import { createRouter } from './router'
 import { sync } from 'vuex-router-sync'
 import titleMixin from './util/title'
 import * as filters from './util/filters'
+import VueLogger from 'vuejs-logger'
+
+const options = {
+  // optional : defaults to true if not specified
+  isEnabled: true,
+  // required ['debug', 'info', 'warn', 'error', 'fatal']
+  logLevel : 'debug',
+  // optional : defaults to false if not specified
+  stringifyArguments : true,
+  // optional : defaults to false if not specified
+  showLogLevel : true,
+  // optional : defaults to false if not specified
+  showMethodName : true,
+  // optional : defaults to '|' if not specified
+  separator: ' ',
+  // optional : defaults to false if not specified
+  showConsoleColors: true
+}
+
+Vue.use(VueLogger, options)
+//var winston = require('../config/winston');
 
 // mixin for handling title
 Vue.mixin(titleMixin)
@@ -31,8 +52,21 @@ export function createApp () {
   const app = new Vue({
     router,
     store,
-    render: h => h(App)
+    render: h => h(App),
+    created() {
+      this.$log.debug('debug', 'debug')
+      this.$log.info('info', 'info')
+      this.$log.warn('warn', 'warn')
+      this.$log.error('error', 'error')
+      this.$log.fatal('fatal', 'fatal')
+      //externalFunction()
+    }
   })
+
+  //app.$log.debug("app created")
+  //var winston = require('winston');
+  //winston.log('info', 'Hello distributed log files!');
+  //winston.info('Hello again distributed logs');
 
   // expose the app, the router and the store.
   // note we are not mounting the app here, since bootstrapping will be

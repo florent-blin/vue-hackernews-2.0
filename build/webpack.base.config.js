@@ -6,6 +6,8 @@ const { VueLoaderPlugin } = require('vue-loader')
 
 const isProd = process.env.NODE_ENV === 'production'
 
+console.log("--------------", path.resolve(__dirname, '../dist'));
+
 module.exports = {
   devtool: isProd
     ? false
@@ -80,5 +82,8 @@ module.exports = {
     : [
         new VueLoaderPlugin(),
         new FriendlyErrorsPlugin()
-      ]
+      ],
+  node: {
+    fs: "empty"
+  }
 }

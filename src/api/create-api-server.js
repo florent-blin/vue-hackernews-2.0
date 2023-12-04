@@ -2,6 +2,7 @@ import Firebase from 'firebase'
 import LRU from 'lru-cache'
 
 export function createAPI ({ config, version }) {
+  console.log("create API server");
   let api
   // this piece of code may run multiple times in development mode,
   // so we attach the instantiated API to `process` to avoid duplications
